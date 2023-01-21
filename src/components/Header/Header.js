@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Logo from "../../assets/Namaste_React_logo.png";
 // import { Container } from "@mui/material";
 // import { Container } from "@mui/material";
@@ -5,6 +6,7 @@ import Logo from "../../assets/Namaste_React_logo.png";
 import "./Header.css";
 
 export const Header = () => {
+  const [authenticated, setAuthenticated] = useState(false);
   return (
     // <Container maxWidth="xl">
     <div className="wrapper">
@@ -20,6 +22,29 @@ export const Header = () => {
             <li>Home</li>
             <li>About</li>
             <li>Contact</li>
+
+            <li>
+              {authenticated ? (
+                <button
+                  onClick={() => {
+                    setAuthenticated(!authenticated);
+                  }}
+                >
+                  logout{" "}
+                </button>
+              ) : (
+                <button
+                  onClick={() => {
+                    setAuthenticated(!authenticated);
+                  }}
+                >
+                  login
+                </button>
+              )}
+            </li>
+            {/* <li>
+              <button>Logout</button>
+            </li> */}
           </ul>
         </div>
       </div>
