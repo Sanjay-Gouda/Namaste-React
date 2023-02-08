@@ -5,22 +5,18 @@ import { createSlice } from "@reduxjs/toolkit";
 const cartSlice = createSlice({
   name: "cart",
   initialState: {
-    // value: 0,
-    item: ["grapes"],
+    item: [],
   },
   reducers: {
-    // increment: (state) => {
-    //   state.value++;
-    // },
-
     addItem: (state, action) => {
       state.item.push(action.payload);
+    },
+    removeItem: (state) => {
+      state.item = [];
     },
   },
 });
 
-// console.log(CartSlice, "slice");
-
-export const { addItem } = cartSlice.actions;
+export const { addItem, removeItem } = cartSlice.actions;
 
 export default cartSlice.reducer;

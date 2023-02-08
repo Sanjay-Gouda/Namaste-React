@@ -9,17 +9,13 @@ import { addItem } from "../../reducers/cartSlice";
 export const MenuList = () => {
   const param = useParams();
   const dispatch = useDispatch();
-  const ItemArray = useSelector((state) => state.cart.item);
-
-  console.log({ ItemArray });
 
   const { id } = param;
 
   const menu = useMenu(id);
 
-  const handleAdd = () => {
-    dispatch(addItem("apple"));
-    console.log("adsas");
+  const handleAdd = (item) => {
+    dispatch(addItem(item));
   };
 
   return (
@@ -51,7 +47,6 @@ export const MenuList = () => {
 
       <Container style={{ marginTop: "2rem" }}>
         {Object?.values(menu?.data?.menu?.items || {}).map((item) => {
-          console.log(item, "asdasd");
           return (
             <div
               key={item.id}
@@ -122,7 +117,7 @@ export const MenuList = () => {
                         top: "60px",
                       }}
                       className="search-button"
-                      onClick={handleAdd}
+                      onClick={() => handleAdd(item)}
                     >
                       Add
                     </button>

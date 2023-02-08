@@ -12,6 +12,7 @@ import { Contact } from "./components/Contact/Contact";
 import { Error } from "./components/Error/Error";
 import RestaurantMenu, { MenuList } from "./components/MenuItem/Menu";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+import { Cart } from "./components/Cart/Cart";
 // const heading = React.createElement(
 //   "h1",
 //   {
@@ -50,14 +51,15 @@ const Title = () => {
 
 const AppLayout = () => {
   return (
-    <>
-      <Provider store={store}>
-        <Header />
+    // <div style={{ position: "relative", height: "100vh" }}>
+    <Provider store={store}>
+      <Header />
 
-        <Outlet />
-        <Footer />
-      </Provider>
-    </>
+      <Outlet />
+
+      <Footer />
+    </Provider>
+    // </div>
   );
 };
 
@@ -75,6 +77,7 @@ const appRouter = createBrowserRouter([
       { path: "/about", element: <About /> },
       { path: "/contact", element: <Contact /> },
       { path: "/menu/:id", element: <MenuList /> },
+      { path: "/cart", element: <Cart /> },
       // { path: "/menu/:id", element: <RestaurantMenu /> },a
     ],
   },

@@ -25,6 +25,7 @@ export const Header = () => {
             <li onClick={() => navigate("/about")}>About</li>
 
             <li onClick={() => navigate("/contact")}>Contact</li>
+            <li onClick={() => navigate("/cart")}>Cart</li>
             {/* <Link to="/about">
               <li>About</li>
             </Link>
