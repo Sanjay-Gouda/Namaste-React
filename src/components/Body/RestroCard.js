@@ -15,10 +15,12 @@ export const RestroCard = ({
   name,
   cuisines,
   deliveryTime,
+  onClick,
 }) => {
   return (
     <Card
       sx={{ maxWidth: 345, flex: 1 }}
+      onClick={onClick}
       style={{
         display: "flex",
         flexDirection: "column",
