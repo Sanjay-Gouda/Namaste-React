@@ -9,13 +9,11 @@ import { Container } from "@mui/material";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { filterRestoList } from "../../utils/helper";
-// import { GET_RESTAURANTS_URL } from "../../Config/config";
-
 import "./Body.css";
 import { Shimmer } from "../Shimmer/Shimmer";
-
 import { useGetRestaurants } from "../../hooks/useGetRestaurants";
-import { Header } from "../Header/Header";
+import { useDispatch } from "react-redux";
+import { setCurrentRestroName } from "../../reducers/restroDetail";
 
 export const Body = () => {
   // console.error(RESTRUALIST, "List");
@@ -23,6 +21,7 @@ export const Body = () => {
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
   const [searchText, setSearchText] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const hookRestroList = useGetRestaurants();
 
   console.log(hookRestroList, "list");
@@ -101,6 +100,7 @@ export const Body = () => {
                     <div style={{ marginBottom: "2rem", display: "flex" }}>
                       <RestroCard
                         onClick={() => {
+                          dispatch(setCurrentRestroName(list));
                           handleRedirect(list.data.id);
                         }}
                         key={list.data.id}

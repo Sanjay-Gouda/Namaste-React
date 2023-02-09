@@ -15,6 +15,14 @@ export const CheckoutWrapper = styled.div`
 
 export const Cart = () => {
   const CartItem = useSelector((state) => state.cart.item);
+  const CurrentRestroName = useSelector(
+    (state) => state.restro_detail?.currentRestro
+  );
+
+  console.log(CurrentRestroName);
+
+  const totalAmt = CartItem.reduce((acc, item) => acc + item?.price / 100, 0);
+
   const dispatch = useDispatch();
   const RemoveItem = () => {
     dispatch(removeItem());
@@ -41,7 +49,7 @@ export const Cart = () => {
                 }}
               >
                 <div>
-                  <p>La Pino'z Pizza</p>
+                  <p>{CurrentRestroName?.data?.name}</p>
                 </div>
                 <div>
                   <button onClick={RemoveItem}>Remove All</button>
@@ -63,6 +71,17 @@ export const Cart = () => {
                   </div>
                 );
               })}
+
+              <div
+                style={{
+                  borderTop: "2px solid black",
+                  display: "flex",
+                  justifyContent: "space-between",
+                }}
+              >
+                <p>To Pay</p>
+                <p>{totalAmt}</p>
+              </div>
             </CheckoutWrapper>
           </Container>
         </div>

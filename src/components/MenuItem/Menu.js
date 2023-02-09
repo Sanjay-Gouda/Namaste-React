@@ -15,6 +15,7 @@ export const MenuList = () => {
   const menu = useMenu(id);
 
   const handleAdd = (item) => {
+    console.log(item);
     dispatch(addItem(item));
   };
 
