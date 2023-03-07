@@ -42,3 +42,19 @@
     flex-wrap: wrap;
     column-gap: 20px;
 }
+
+.image-wrapper{
+    margin-right: 50px;
+    cursor: pointer;
+    transition: transform .5s;
+}
+
+.image-wrapper:hover{
+    transform: scale(1.1);
+}
+
+.RestroWrapper{
+    margin-bottom:2rem ;
+    margin-top:2rem ;
+    display: flex;
+}

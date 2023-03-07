@@ -32,6 +32,7 @@
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.7.0",
     "react-shimmer-effects": "^1.0.2",
+    "react-slick": "^0.29.0",
     "styled-components": "^5.3.6"
   }
 }

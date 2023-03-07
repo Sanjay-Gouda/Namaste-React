@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Logo from "../../assets/Namaste_React_logo.png";
+import Logo from "../../assets/foodies_logo.jpg";
 import { useNavigate, Link } from "react-router-dom";
 import "./Header.css";
 import { useSelector } from "react-redux";
@@ -14,7 +14,7 @@ export const Header = () => {
     // <Container maxWidth="xl">
     <div className="wrapper">
       <div className="navbar">
-        <div style={{ width: "10%" }}>
+        <div style={{ width: "100px", height: "100px" }}>
           <img
             src={Logo}
             style={{ width: "100%", height: "100%", objectFit: "contain" }}
@@ -23,9 +23,11 @@ export const Header = () => {
         <div>
           <ul>
             <li onClick={() => navigate("/")}>Home</li>
+            <li onClick={() => navigate("/home")}>HomeLight</li>
             <li onClick={() => navigate("/about")}>About</li>
 
             <li onClick={() => navigate("/contact")}>Contact</li>
+            <li onClick={() => navigate("/offer")}>Offer</li>
             <li onClick={() => navigate("/cart")}>Cart- {MenuLength.length}</li>
             {/* <Link to="/about">
               <li>About</li>

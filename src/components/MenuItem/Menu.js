@@ -1,18 +1,50 @@
 import { Container } from "@mui/material";
-
+import { useState } from "react";
 import { IMG_CDN_URL, RESTRO_MENU } from "../../config/config";
 import { useParams } from "react-router-dom";
 import { useMenu } from "../../hooks/useRestroMenu";
 import { useSelector, useDispatch } from "react-redux";
 import { addItem } from "../../reducers/cartSlice";
+import { SwitchMenu } from "../ToggleMenu/ToggleMenu";
 
 export const MenuList = () => {
   const param = useParams();
-  const dispatch = useDispatch();
-
   const { id } = param;
-
   const menu = useMenu(id);
+  const MenuList = menu?.data?.menu?.items;
+  const dispatch = useDispatch();
+  const [vegList, setVegList] = useState([]);
+  const [recommendLength, setRecommendLength] = useState(23);
+  const [isVeg, setIsVeg] = useState(false);
+
+  const [checked, setChecked] = useState(false);
+
+  // const LengthObj = Object?.keys(MenuList);
+
+  // const MenuListLength = LengthObj.length;
+  // console.log(MenuList);
+
+  const getVegList = () => {
+    const veg = Object.values(MenuList).filter((list) => {
+      return list?.isVeg === 1;
+    });
+    console.log(veg);
+    setVegList(veg);
+    // return veg;
+  };
+
+  const handleChange = (event) => {
+    setChecked(event.target.checked);
+
+    if (event.target.checked) {
+      getVegList();
+      setIsVeg(true);
+      setRecommendLength(vegList.length);
+    } else {
+      setIsVeg(false);
+      setRecommendLength(21);
+    }
+  };
 
   const handleAdd = (item) => {
     console.log(item);
@@ -47,87 +79,198 @@ export const MenuList = () => {
       </div>
 
       <Container style={{ marginTop: "2rem" }}>
-        {Object?.values(menu?.data?.menu?.items || {}).map((item) => {
-          return (
-            <div
-              key={item.id}
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                width: "100%",
-              }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  width: "50%",
-                  border: "1px solid #ccc",
-                  padding: "10px 20px",
-                }}
-              >
-                <div style={{ width: "70%" }}>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      width: "100%",
-                    }}
-                  >
-                    <p style={{ margin: 0 }}>{item?.name}</p>
-                    <p style={{ margin: 0 }}>{item?.category}</p>
-                    {/* <div>
-                      <p>{item?.description}</p>
-                    </div> */}
-                  </div>
-                </div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "column",
+            width: "57%",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <p>Veg Only</p>
+            <SwitchMenu checked={checked} handleChange={handleChange} />
+          </div>
+          <div style={{ marginBottom: "10px" }}>
+            Recommended({recommendLength})
+          </div>
+        </div>
+        {isVeg ? (
+          <>
+            {vegList?.map((item) => {
+              return (
                 <div
+                  key={item.id}
                   style={{
                     display: "flex",
                     justifyContent: "center",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    padding: "20px 0",
+                    width: "100%",
                   }}
                 >
-                  <div style={{ position: "relative" }}>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      width: "50%",
+                      border: "1px solid #ccc",
+                      padding: "10px 20px",
+                    }}
+                  >
+                    <div style={{ width: "70%" }}>
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          width: "100%",
+                        }}
+                      >
+                        <p style={{ margin: 0 }}>{item?.name}</p>
+                        <p style={{ margin: 0 }}>{item?.category}</p>
+                        {/* <div>
+                            <p>{item?.description}</p>
+                          </div> */}
+                      </div>
+                    </div>
                     <div
                       style={{
-                        width: "130px",
-                        height: "100px",
-                        overflow: "hidden",
-                        borderRadius: "10px",
+                        display: "flex",
+                        justifyContent: "center",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        padding: "20px 0",
                       }}
                     >
-                      <img
-                        src={IMG_CDN_URL + item?.cloudinaryImageId}
-                        style={{
-                          width: "100%",
-                          height: "100%",
-                          objectFit: "cover",
-                        }}
-                      />
+                      <div style={{ position: "relative" }}>
+                        <div
+                          style={{
+                            width: "130px",
+                            height: "100px",
+                            overflow: "hidden",
+                            borderRadius: "10px",
+                          }}
+                        >
+                          <img
+                            src={IMG_CDN_URL + item?.cloudinaryImageId}
+                            style={{
+                              width: "100%",
+                              height: "100%",
+                              objectFit: "cover",
+                            }}
+                          />
+                        </div>
+                        <button
+                          style={{
+                            marginTop: "10px",
+                            position: "absolute",
+                            bottom: "0px",
+                            left: "-5px",
+                            right: "0px",
+                            top: "60px",
+                          }}
+                          className="search-button"
+                          onClick={() => handleAdd(item)}
+                        >
+                          Add
+                        </button>
+                      </div>
                     </div>
-                    <button
-                      style={{
-                        marginTop: "10px",
-                        position: "absolute",
-                        bottom: "0px",
-                        left: "-5px",
-                        right: "0px",
-                        top: "60px",
-                      }}
-                      className="search-button"
-                      onClick={() => handleAdd(item)}
-                    >
-                      Add
-                    </button>
                   </div>
                 </div>
-              </div>
-            </div>
-          );
-        })}
+              );
+            })}
+          </>
+        ) : (
+          <>
+            {Object?.values(MenuList || {}).map((item) => {
+              return (
+                <div
+                  key={item.id}
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    width: "100%",
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      width: "50%",
+                      border: "1px solid #ccc",
+                      padding: "10px 20px",
+                    }}
+                  >
+                    <div style={{ width: "70%" }}>
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          width: "100%",
+                        }}
+                      >
+                        <p style={{ margin: 0 }}>{item?.name}</p>
+                        <p style={{ margin: 0 }}>{item?.category}</p>
+                        {/* <div>
+                      <p>{item?.description}</p>
+                    </div> */}
+                      </div>
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        padding: "20px 0",
+                      }}
+                    >
+                      <div style={{ position: "relative" }}>
+                        <div
+                          style={{
+                            width: "130px",
+                            height: "100px",
+                            overflow: "hidden",
+                            borderRadius: "10px",
+                          }}
+                        >
+                          <img
+                            src={IMG_CDN_URL + item?.cloudinaryImageId}
+                            style={{
+                              width: "100%",
+                              height: "100%",
+                              objectFit: "cover",
+                            }}
+                          />
+                        </div>
+                        <button
+                          style={{
+                            marginTop: "10px",
+                            position: "absolute",
+                            bottom: "0px",
+                            left: "-5px",
+                            right: "0px",
+                            top: "60px",
+                          }}
+                          className="search-button"
+                          onClick={() => handleAdd(item)}
+                        >
+                          Add
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </>
+        )}
       </Container>
     </>
   );

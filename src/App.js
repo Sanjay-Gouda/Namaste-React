@@ -13,6 +13,8 @@ import { Error } from "./components/Error/Error";
 import RestaurantMenu, { MenuList } from "./components/MenuItem/Menu";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import { Cart } from "./components/Cart/Cart";
+import { Offer } from "./components/Offer/Offer";
+import { Home } from "./components/Home/Home";
 // const heading = React.createElement(
 //   "h1",
 //   {
@@ -74,10 +76,12 @@ const appRouter = createBrowserRouter([
     errorElement: <Error />,
     children: [
       { path: "/", element: <Body /> },
+      { path: "/home", element: <Home /> },
       { path: "/about", element: <About /> },
       { path: "/contact", element: <Contact /> },
       { path: "/menu/:id", element: <MenuList /> },
       { path: "/cart", element: <Cart /> },
+      { path: "/offer", element: <Offer /> },
       // { path: "/menu/:id", element: <RestaurantMenu /> },a
     ],
   },

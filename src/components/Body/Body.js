@@ -91,7 +91,7 @@ export const Body = () => {
           <div className="card-wrapper">
             {hookRestroList?.length === 0 ? (
               <>
-                <Shimmer />
+                <Shimmer LengthOfArray={10} />
               </>
             ) : (
               <>
